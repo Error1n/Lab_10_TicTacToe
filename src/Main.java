@@ -7,8 +7,12 @@ public class Main
     public static void main(String[] args)
     {
 
+        showBoard();
     }
 
+    /**
+     * clears board and sets all board elements to a space
+     */
     private static void clearBoard() // sets all the board elements to a space
     {
         for(int row=0; row < ROW; row++)
@@ -21,6 +25,20 @@ public class Main
     }
 
     // write a method to show the board similar to clear the board here
+
+    private static void showBoard()
+    {
+        System.out.println("| " + board[0][0] + " | " + board[0][1] + " | " + board[0][2] + " |");
+        System.out.println("| " + board[1][0] + " | " + board[1][1] + " | " + board[1][2] + " |");
+        System.out.println("| " + board[2][0] + " | " + board[2][1] + " | " + board[2][2] + " |");
+    }
+
+    /**
+     * checks for a valid move
+     * @param row
+     * @param col
+     * @return
+     */
 
     private static boolean isValidMove(int row, int col) // checks for a valid move
     {
@@ -44,6 +62,22 @@ public class Main
         return false;
     }
 
+    private static boolean isDiagnalWin(String player)
+    {
+        if(board[0][0].equals(player) && board[1][1].equals(player) && board[2][2].equals(player))
+        {
+            return true;
+        }
+        else if (board[0][3].equals(player) && board[1][1].equals(player) && board[2][0].equals(player))
+        {
+            return true;
+        }
+        else
+        {
+            return false; // no diagonal win
+        }
+    }
+
     private static boolean isRowWin(String player)
     {
         for(int row = 0; row < ROW; row++)
@@ -64,9 +98,9 @@ public class Main
                 return true;
             }
         }
-        return false; // no row win
+        return false; // no col win
     }
 
-    // create diagonal win method here
+
 
 }
