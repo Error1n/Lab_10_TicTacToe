@@ -101,7 +101,16 @@ public class Main
         return false; // no col win
     }
 
-// check for a tie: a do while loop with a cascaded if that checks each row, col, and diagonal. If a r/c/d has both an X and an O in it, it is impossible to win
+    // check for a tie: a do while loop with a cascaded if that checks each row, col, and diagonal. If a r/c/d has both an X and an O in it, it is impossible to win
     // If all rows are impossible to win, it's a tie!
+
+    private static boolean isTie(String player)
+    {
+        boolean tie = false;
+        do
+        {
+            tie = true;
+        }(while !tie)
+    }
 
 }
