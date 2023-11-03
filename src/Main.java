@@ -56,6 +56,7 @@ public class Main
                     if(isTie(player))
                     {
                         System.out.println("It's a tie!");
+                        playing = false;
                     }
                 }
 
@@ -131,7 +132,7 @@ public class Main
         {
             return true;
         }
-        else if (board[0][3].equals(player) && board[1][1].equals(player) && board[2][0].equals(player))
+        else if (board[0][2].equals(player) && board[1][1].equals(player) && board[2][0].equals(player))
         {
             return true;
         }
