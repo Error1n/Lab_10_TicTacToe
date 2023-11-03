@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class Main
 {
     private static final int ROW = 3;
@@ -6,8 +7,66 @@ public class Main
 
     public static void main(String[] args)
     {
+        Scanner scan = new Scanner(System.in);
+        boolean playing = false;
+        boolean donePlaying = false;
+        String player = "X";
+        int moveCount = 0;
+        int row = -1;
+        int col = -1;
+        final int MOVES_FOR_WIN = 5;
+        final int MOVES_FOR_TIE = 7;
 
-        showBoard();
+
+        do
+        {
+            do // playing
+            {
+                clearBoard();
+                moveCount = 0;
+                player = "X";
+                playing = true;
+                do // getting valid input
+                {
+                    showBoard();
+                    System.out.println("Enter move for " + player);
+                    row = SafeInput.getRangedInt(scan, "Enter coordinates for row [1 - 3]: ", 1, 3);
+                    col = SafeInput.getRangedInt(scan, "\"Enter coordinates for col [1 - 3]: ", 1, 3);
+                    row--; // subtracting because board is 0-2
+                    col--;
+                }while(!isValidMove(row, col));
+                board[row][col] = player; // putting the play on the board
+                moveCount++;
+
+                if(moveCount >= MOVES_FOR_WIN)
+                {
+                    if(isWin(player))
+                    {
+                        showBoard();
+                        System.out.println("Player " + player + " won!");
+                        playing = false;
+                    }
+                }
+                if(moveCount >= MOVES_FOR_TIE)
+                {
+                    // test for tie here
+                }
+                if(player.equals("X"))
+                {
+                    player = "O";
+                }
+                else
+                {
+                    player = "X";
+                }
+
+
+            }while(!playing);
+
+            donePlaying = SafeInput.getYNConfirm(scan,"Are you done playing?");
+        }while(!donePlaying);
+
+
     }
 
     /**
@@ -104,13 +163,6 @@ public class Main
     // check for a tie: a do while loop with a cascaded if that checks each row, col, and diagonal. If a r/c/d has both an X and an O in it, it is impossible to win
     // If all rows are impossible to win, it's a tie!
 
-    private static boolean isTie(String player)
-    {
-        boolean tie = false;
-        do
-        {
-            tie = true;
-        }(while !tie)
-    }
+
 
 }
