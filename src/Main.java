@@ -17,13 +17,13 @@ public class Main
         final int MOVES_FOR_WIN = 5;
         final int MOVES_FOR_TIE = 7;
 
-
         do
         {
             clearBoard();
             moveCount = 0;
             player = "X";
             playing = true;
+            donePlaying = false;
             do // playing
             {
 
@@ -36,8 +36,11 @@ public class Main
                     row--; // subtracting because board is 0-2
                     col--;
                 }while(!isValidMove(row, col));
+
                 board[row][col] = player; // putting the play on the board
                 moveCount++;
+
+
 
                 if(moveCount >= MOVES_FOR_WIN)
                 {
@@ -50,8 +53,12 @@ public class Main
                 }
                 if(moveCount >= MOVES_FOR_TIE)
                 {
-                    // test for tie here
+                    if(isTie(player))
+                    {
+                        System.out.println("It's a tie!");
+                    }
                 }
+
                 if(player.equals("X"))
                 {
                     player = "O";
@@ -62,10 +69,10 @@ public class Main
                 }
 
 
-            }while(!playing);
-
+            }while(playing);
             donePlaying = SafeInput.getYNConfirm(scan,"Are you done playing?");
         }while(!donePlaying);
+
 
 
     }
@@ -108,21 +115,17 @@ public class Main
         return retVal;
     }
 
-    /**
-     * Determines if there is a win using the isRowWin, isColWin, and isDiagonalWin methods
-     * @param player
-     * @return is win
-     */
+
     private static boolean isWin(String player)
     {
-        if(isColWin(player) || isRowWin(player) || isDiagnalWin(player))
+        if(isColWin(player) || isRowWin(player) || isDiagonalWin(player))
         {
             return true;
         }
         return false;
     }
 
-    private static boolean isDiagnalWin(String player)
+    private static boolean isDiagonalWin(String player)
     {
         if(board[0][0].equals(player) && board[1][1].equals(player) && board[2][2].equals(player))
         {
@@ -167,11 +170,40 @@ public class Main
 
     private static boolean isTie(String player)
     {
-        if(isRowOneTie(player) && isRowTwoTie(player) && isRowThreeTie(player) && isColOneTie(player) && isColTwoTie(player) && isColThreeTie(player))
+        if(isRowOneTie(player) && isRowTwoTie(player) && isRowThreeTie(player) && isColOneTie(player) && isColTwoTie(player) && isColThreeTie(player) && isDiagnalOneTie(player) && isDiagnalTwoTie(player))
         {
             return true;
         }
         return false;
+    }
+
+    private static boolean isDiagnalOneTie(String player)
+    {
+        boolean diagonalOneX = false;
+        boolean diagonalOneO = false;
+        if(board[0][0].equals("X") && board[1][1].equals("X") && board[2][2].equals("X"))
+        {
+            diagonalOneX = true;
+        }
+        if(board[0][0].equals("O") && board[1][1].equals("O") && board[2][2].equals("O"))
+        {
+            diagonalOneO = true;
+        }
+        return !(diagonalOneX && diagonalOneO);
+    }
+    private static boolean isDiagnalTwoTie(String player)
+    {
+        boolean diagonalTwoX = false;
+        boolean diagonalTwoO = false;
+        if(board[0][2].equals("X") && board[1][1].equals("X") && board[2][0].equals("X"))
+        {
+            diagonalTwoX = true;
+        }
+        if(board[0][2].equals("O") && board[1][1].equals("O") && board[2][0].equals("O"))
+        {
+            diagonalTwoO = true;
+        }
+        return !(diagonalTwoX && diagonalTwoO);
     }
     private static boolean isRowOneTie(String player)
     {
