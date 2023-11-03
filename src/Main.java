@@ -20,18 +20,19 @@ public class Main
 
         do
         {
+            clearBoard();
+            moveCount = 0;
+            player = "X";
+            playing = true;
             do // playing
             {
-                clearBoard();
-                moveCount = 0;
-                player = "X";
-                playing = true;
+
                 do // getting valid input
                 {
                     showBoard();
                     System.out.println("Enter move for " + player);
-                    row = SafeInput.getRangedInt(scan, "Enter coordinates for row [1 - 3]: ", 1, 3);
-                    col = SafeInput.getRangedInt(scan, "\"Enter coordinates for col [1 - 3]: ", 1, 3);
+                    row = SafeInput.getRangedInt(scan, "Enter coordinates for row ", 1, 3);
+                    col = SafeInput.getRangedInt(scan, "Enter coordinates for col ", 1, 3);
                     row--; // subtracting because board is 0-2
                     col--;
                 }while(!isValidMove(row, col));
@@ -162,6 +163,130 @@ public class Main
 
     // check for a tie: a do while loop with a cascaded if that checks each row, col, and diagonal. If a r/c/d has both an X and an O in it, it is impossible to win
     // If all rows are impossible to win, it's a tie!
+
+
+    private static boolean isTie(String player)
+    {
+        if(isRowOneTie(player) && isRowTwoTie(player) && isRowThreeTie(player) && isColOneTie(player) && isColTwoTie(player) && isColThreeTie(player))
+        {
+            return true;
+        }
+        return false;
+    }
+    private static boolean isRowOneTie(String player)
+    {
+        boolean rowOneX = false;
+        boolean rowOneO = false;
+
+        for(int col = 0; col < COL; col++)
+        {
+            if(board[0][col].equals("X"))
+            {
+                rowOneX = true;
+            }
+            if(board[0][col].equals("O"))
+            {
+                rowOneO = true;
+            }
+
+        }
+        return rowOneX && rowOneO;
+    }
+    private static boolean isRowTwoTie(String player)
+    {
+        boolean rowTwoX = false;
+        boolean rowTwoO = false;
+
+        for(int col = 0; col < COL; col++)
+        {
+            if(board[1][col].equals("X"))
+            {
+                rowTwoX = true;
+            }
+            if(board[1][col].equals("O"))
+            {
+                rowTwoO = true;
+            }
+
+        }
+        return rowTwoX && rowTwoO;
+    }
+    private static boolean isRowThreeTie(String player)
+    {
+        boolean rowThreeX = false;
+        boolean rowThreeO = false;
+
+        for(int col = 0; col < COL; col++)
+        {
+            if(board[2][col].equals("X"))
+            {
+                rowThreeX = true;
+            }
+            if(board[2][col].equals("O"))
+            {
+                rowThreeO = true;
+            }
+
+        }
+        return rowThreeX && rowThreeO;
+    }
+    private static boolean isColOneTie(String player)
+    {
+        boolean colOneX = false;
+        boolean colOneO = false;
+
+        for(int row = 0; row < ROW; row++)
+        {
+            if(board[row][0].equals("X"))
+            {
+                colOneX = true;
+            }
+            if(board[row][0].equals("O"))
+            {
+                colOneO = true;
+            }
+
+        }
+        return colOneX && colOneO;
+    }
+    private static boolean isColTwoTie(String player)
+    {
+        boolean colTwoX = false;
+        boolean colTwoO = false;
+
+        for(int row = 0; row < ROW; row++)
+        {
+            if(board[row][1].equals("X"))
+            {
+                colTwoX = true;
+            }
+            if(board[row][1].equals("O"))
+            {
+                colTwoO = true;
+            }
+
+        }
+        return colTwoX && colTwoO;
+    }
+    private static boolean isColThreeTie(String player)
+    {
+        boolean colThreeX = false;
+        boolean colThreeO = false;
+
+        for(int row = 0; row < ROW; row++)
+        {
+            if(board[row][2].equals("X"))
+            {
+                colThreeX = true;
+            }
+            if(board[row][2].equals("O"))
+            {
+                colThreeO = true;
+            }
+
+        }
+        return colThreeX && colThreeO;
+    }
 
 
 
