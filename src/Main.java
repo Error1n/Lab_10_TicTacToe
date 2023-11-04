@@ -55,6 +55,7 @@ public class Main
                 {
                     if(isTie(player))
                     {
+                        showBoard();
                         System.out.println("It's a tie!");
                         playing = false;
                     }
@@ -157,7 +158,7 @@ public class Main
     {
         for(int col = 0; col < COL; col++)
         {
-            if(board[col][0].equals(player) && board[col][1].equals(player) && board[col][2].equals(player))
+            if(board[0][col].equals(player) && board[1][col].equals(player) && board[2][col].equals(player))
             {
                 return true;
             }
@@ -171,11 +172,24 @@ public class Main
 
     private static boolean isTie(String player)
     {
-        if(isRowOneTie(player) && isRowTwoTie(player) && isRowThreeTie(player) && isColOneTie(player) && isColTwoTie(player) && isColThreeTie(player) && isDiagnalOneTie(player) && isDiagnalTwoTie(player))
+        if(isRowOneTie(player) && isRowTwoTie(player) && isRowThreeTie(player) && isColOneTie(player) && isColTwoTie(player) && isColThreeTie(player) && isDiagnalOneTie(player) && isDiagnalTwoTie(player) || isBoardFull(player))
         {
             return true;
         }
         return false;
+    }
+
+    private static boolean isBoardFull(String player)
+    {
+
+        if(board[0][0].equals(player) && board[0][1].equals(player) && board[0][2].equals(player) && board[1][0].equals(player) && board[1][1].equals(player) && board[1][2].equals(player) && board[2][0].equals(player) && board[2][1].equals(player) && board[2][2].equals(player))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private static boolean isDiagnalOneTie(String player)
